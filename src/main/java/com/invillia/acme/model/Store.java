@@ -1,6 +1,7 @@
 package com.invillia.acme.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,7 +11,9 @@ public class Store implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String address;
 
     public Long getId() {

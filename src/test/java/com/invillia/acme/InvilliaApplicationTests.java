@@ -9,8 +9,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class InvilliaApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    public static final String APPLICATION_JSON = "application/json";
+
+    @Test
+    public void contextLoads() {
+
+    }
 
 }
