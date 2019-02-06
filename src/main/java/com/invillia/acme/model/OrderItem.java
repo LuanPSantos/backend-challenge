@@ -4,7 +4,9 @@ package com.invillia.acme.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +15,15 @@ public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String description;
+    @NotNull
     private Double unitPrice;
+    @NotNull
     private Integer quantity;
-    @ManyToOne
+    @ManyToMany(mappedBy = "items")
     @JsonIgnore
-    private Order order;
+    private List<Order> orders;
 
     public Long getId() {
         return id;
@@ -56,12 +61,12 @@ public class OrderItem implements Serializable {
         return this;
     }
 
-    public Order getOrder() {
-        return order;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public OrderItem setOrder(Order order) {
-        this.order = order;
+    public OrderItem setOrders(List<Order> orders) {
+        this.orders = orders;
         return this;
     }
 

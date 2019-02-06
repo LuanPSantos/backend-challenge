@@ -1,6 +1,7 @@
 package com.invillia.acme.controller;
 
 import com.invillia.acme.model.Store;
+import static com.invillia.acme.util.StoreUtil.*;
 import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StoreControllerTest {
+public class StoreControllerIT {
 
     @LocalServerPort
     int port;
@@ -152,21 +153,5 @@ public class StoreControllerTest {
                 .body("content.size", equalTo(3));
     }
 
-    private Store postStore() {
-        return postStore("Name", "Address");
-    }
 
-    private Store postStore(String name, String address) {
-        return given()
-                .contentType(APPLICATION_JSON)
-                .body(new Store()
-                        .setName(name)
-                        .setAddress(address)
-                )
-                .when()
-                .post("/stores")
-                .then()
-                .extract()
-                .as(Store.class);
-    }
 }

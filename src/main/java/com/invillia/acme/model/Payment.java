@@ -3,6 +3,7 @@ package com.invillia.acme.model;
 import com.invillia.acme.model.constant.PaymentStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,9 +15,14 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private PaymentStatus status;
+    @NotNull
     private String creditCardNumber;
+    @NotNull
     private LocalDateTime paymentDate;
+    @OneToOne
+    private Order order;
 
     public Long getId() {
         return id;
@@ -51,6 +57,15 @@ public class Payment implements Serializable {
 
     public Payment setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
+        return this;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Payment setOrder(Order order) {
+        this.order = order;
         return this;
     }
 

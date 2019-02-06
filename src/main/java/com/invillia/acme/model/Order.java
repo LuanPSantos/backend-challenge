@@ -3,6 +3,8 @@ package com.invillia.acme.model;
 import com.invillia.acme.model.constant.OrderStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +17,19 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String address;
     private LocalDateTime confirmationDate;
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     private OrderStatus status;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @ManyToMany
+    @NotNull
+    @NotEmpty
     private List<OrderItem> items;
+    @ManyToOne
+    @NotNull
+    private Store store;
 
     public Long getId() {
         return id;
@@ -64,6 +73,15 @@ public class Order implements Serializable {
 
     public Order setItems(List<OrderItem> items) {
         this.items = items;
+        return this;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public Order setStore(Store store) {
+        this.store = store;
         return this;
     }
 
