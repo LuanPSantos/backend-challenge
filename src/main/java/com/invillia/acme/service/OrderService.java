@@ -6,6 +6,7 @@ import com.invillia.acme.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Transactional
     public Order save(Order order) {
         return orderRepository.save(order);
     }
