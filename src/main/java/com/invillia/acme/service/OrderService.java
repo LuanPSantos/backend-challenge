@@ -24,4 +24,8 @@ public class OrderService {
     public Page<Order> findAll(LocalDateTime confirmationDate, OrderStatus status, String address, Integer page, Integer size) {
         return orderRepository.findAllFiltering(confirmationDate, status, address, page, size);
     }
+
+    public Order findById(Long id) {
+        return orderRepository.findById(id).get();
+    }
 }

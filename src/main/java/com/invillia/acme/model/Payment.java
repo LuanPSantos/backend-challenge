@@ -16,12 +16,14 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
     @NotNull
     private String creditCardNumber;
     @NotNull
     private LocalDateTime paymentDate;
     @OneToOne
+    @NotNull
     private Order order;
 
     public Long getId() {

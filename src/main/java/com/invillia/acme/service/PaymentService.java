@@ -1,5 +1,6 @@
 package com.invillia.acme.service;
 
+import com.invillia.acme.model.Order;
 import com.invillia.acme.model.Payment;
 import com.invillia.acme.model.constant.OrderStatus;
 import com.invillia.acme.model.constant.PaymentStatus;
@@ -8,6 +9,8 @@ import com.invillia.acme.service.amqp.PaymentSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 public class PaymentService {
@@ -38,11 +41,15 @@ public class PaymentService {
 
     private void updateStatus(Payment payment) {
         paymentRepository.findById(payment.getId())
-                .ifPresent(payment1 -> {
-                    payment.setStatus(PaymentStatus.APPROVED);
-                    payment.getOrder().setStatus(OrderStatus.FINISHED);
-
-                    paymentRepository.save(payment);
+                .ifPresent(p -> {
+                    p.setStatus(PaymentStatus.APPROVED);
+                    p.setPaymentDate(LocalDateTime.now());
+                    paymentRepository.save(p);
                 });
+
+        Order order = orderService.findById(payment.getOrder().getId());
+        order.setStatus(OrderStatus.FINISHED);
+        order.setConfirmationDate(LocalDateTime.now());
+        orderService.save(order);
     }
 }

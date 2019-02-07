@@ -20,11 +20,11 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 .withMatcher("address", contains().ignoreCase())
                 .withIgnoreNullValues();
 
-        Example<Store> stringExample = Example.of(
+        Example<Store> example = Example.of(
                 new Store()
                         .setAddress(address)
                         .setName(name), matcher);
 
-        return this.findAll(stringExample, PageRequest.of(page, size));
+        return this.findAll(example, PageRequest.of(page, size));
     }
 }

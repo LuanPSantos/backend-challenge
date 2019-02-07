@@ -25,12 +25,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                 .withMatcher("address", contains().ignoreCase())
                 .withIgnoreNullValues();
 
-        Example<Order> orderExample = Example.of(
+        Example<Order> example = Example.of(
                 new Order()
                         .setStatus(status)
                         .setAddress(address)
                         .setConfirmationDate(confirmationDate), matcher);
 
-        return this.findAll(orderExample, PageRequest.of(page, size));
+        return this.findAll(example, PageRequest.of(page, size));
     }
 }
