@@ -1,3 +1,19 @@
+## Feito vs Poderia ter feito
+
+### Feito
+- REST API
+- Exception Handler
+- Hibernate e queries com Example<T>
+- Processo assíncrono com RabbitMQ
+- Swagger
+- Banco em memória para testes
+- Testes e2e com Rest Assured
+  
+### Poderia ter feito
+- Testes unitários com Junit e Mockito
+- Separar em dois micro serviços: Payment e Order
+- Criar queries em HQL para deixar mais performático
+
 # Invillia recruitment challenge
 
 [![Build Status](https://travis-ci.org/shelsonjava/invillia.svg?branch=master)](https://travis-ci.org/shelsonjava/invillia)
